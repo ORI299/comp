@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results - Funky Edition</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f9f7d3;
+            color: #2a3d56;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff6347;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: #ff4500;
+            font-size: 2rem;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            text-decoration: underline;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff0f0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            border: 3px solid #ff6347;
+        }
+
+        .system-info, .language-cards {
+            margin-bottom: 30px;
+        }
+
+        /* Card for each language result */
+        .language-card {
+            background-color: #fff8dc;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            transform: rotate(1deg);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .language-card:hover {
+            transform: rotate(0deg);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .language-card h3 {
+            color: #ff6347;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .language-card p {
+            font-size: 1.2rem;
+            color: #2a3d56;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .language-card p span {
+            color: #ff4500;
+            font-weight: normal;
+        }
+
+        /* Fun Button */
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #ff6347;
+            color: white;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button:hover {
+            background-color: #ff4500;
+            transform: scale(1.1);
+        }
+
+        .button:active {
+            transform: scale(1);
+        }
+
+        /* Funky Animations */
+        .language-card h3, .language-card p {
+            animation: popIn 1s ease-out;
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .language-card p {
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sorting Animation */
+        .sorted {
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .language-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .language-card p {
+                font-size: 1.1rem;
+            }
+
+            .button {
+                padding: 12px 30px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Test Results - Funky Edition!</h1>
+
+        <div class="system-info">
+            <h2>System Information</h2>
+            <p><span>System:</span> {{ results.system_information.System }}</p>
+            <p><span>Platform:</span> {{ results.system_information.Platform }}</p>
+            <p><span>Processor:</span> {{ results.system_information.Processor }}</p>
+        </div>
+
+        <h2>Language Performance</h2>
+        <div class="language-cards">
+            {% set sorted_languages = results.languages.items() | sort(attribute=1['time'], reverse=false) %}
+            {% for language, data in sorted_languages %}
+                <div class="language-card sorted">
+                    <h3>{{ language.capitalize() }} <span>rocks!</span></h3>
+                    <p><span>Version:</span> {{ data.version }}</p>
+                    <p><span>Execution Time:</span> {{ '%.12f' | format(data.time) }} seconds</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form method="POST" action="/run_tests">
+            <button class="button" type="submit">Let’s Go Again!</button>
+        </form>
+    </div>
+
+</body>
+</html>

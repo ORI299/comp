@@ -1,0 +1,21 @@
+{
+    "languages": {
+        "python": {
+            "version": "Python 3.12.8",
+            "time": 0.3803219795227051
+        },
+        "java": {
+            "version": "java version \"21.0.3\" 2024-04-16 LTS",
+            "time": 0.13990473747253418
+        },
+        "javascript": {
+            "version": "v20.18.0",
+            "time": 0.513648509979248
+        }
+    },
+    "system_information": {
+        "System": "Windows",
+        "Platform": "Windows-10-10.0.19041-SP0",
+        "Processor": "Intel64 Family 6 Model 158 Stepping 10"
+    }
+}
